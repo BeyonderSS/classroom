@@ -1,24 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import SignInButton from "../components/SignInButton";
 import AuthContext from "./contexts/AuthContext";
-import { coursesData } from './api/listcourses.js';
-
-
-
-// Now you can use the coursesData variable to access the course data
+import { getCoursesWithAccessToken } from "./api/listcourses";
+import CoursesList from "../components/CoursesList"; // Import the CoursesList component
 
 export default function Home() {
-  const { user, signInWithGoogle, handleSignOut } = useContext(AuthContext);
-  console.log(user)
-  console.log(coursesData);
+  const { user, accessToken, signInWithGoogle, handleSignOut } =
+    useContext(AuthContext);
+  const [courses, setCourses] = useState([]); // State to store the courses data
 
- 
+  useEffect(() => {
+    // Fetch courses data when accessToken changes
+    const fetchCourses = async () => {
+      if (accessToken) {
+        // Check if accessToken is available
+        try {
+          const coursesData = await getCoursesWithAccessToken(accessToken);
+          setCourses(coursesData); // Update the courses state with fetched data
+        } catch (error) {
+          console.error("Error fetching courses:", error);
+        }
+      }
+    };
+
+    fetchCourses();
+  }, [accessToken]); // Run the effect whenever accessToken changes
 
   return (
     <div>
       {/* Render your UI based on the user state */}
       {user ? (
-        <button onClick={handleSignOut}>Sign Out</button>
+        <div>
+          <button onClick={handleSignOut}>Sign Out</button>
+          {/* Render the CoursesList component with the courses data */}
+          <CoursesList courses={courses} />
+        </div>
       ) : (
         <SignInButton onClick={signInWithGoogle} />
       )}

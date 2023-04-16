@@ -1,4 +1,5 @@
-// context/AuthContext.js
+// context/AuthContext.js 
+
 import { createContext, useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
@@ -13,6 +14,7 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [accessToken, setAccessToken] = useState(null); // Add accessToken state
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -34,9 +36,10 @@ export function AuthProvider({ children }) {
       const result = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const accessToken = credential.accessToken;
-      console.log(accessToken)
+      console.log(accessToken);
+      setAccessToken(accessToken); // Set accessToken state
       const user = result.user;
-      document.cookie = `accessToken=\${accessToken}; path=/;`;
+      document.cookie = `accessToken=${accessToken}; path=/;`;
       getCoursesWithAccessToken(accessToken);
     } catch (error) {
       console.error("Error signing in with Google:", error);
@@ -47,15 +50,16 @@ export function AuthProvider({ children }) {
     try {
       await signOut(auth);
       setUser(null);
+      setAccessToken(null); // Reset accessToken state
     } catch (error) {
       console.error("Error signing out:", error);
     }
   };
 
-  
-
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle, handleSignOut }}>
+    <AuthContext.Provider
+      value={{ user, accessToken, signInWithGoogle, handleSignOut }} // Include accessToken in the context value
+    >
       {children}
     </AuthContext.Provider>
   );

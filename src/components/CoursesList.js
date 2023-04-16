@@ -1,3 +1,5 @@
+// components/CourseList.js 
+
 import React from 'react';
 
 const CoursesList = ({ courses }) => {
