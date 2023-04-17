@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'; // Import the fetch library if you're running this code in a Node.js environment
+import fetch from 'node-fetch';
 
 export async function createCourseWithAccessToken(accessToken) {
   const url = "https://classroom.googleapis.com/v1/courses";

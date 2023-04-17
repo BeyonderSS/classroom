@@ -4,8 +4,7 @@ import AuthContext from "../pages/contexts/AuthContext";
 
 const CreateCourseForm = () => {
 
-  const { accessToken} =
-  useContext(AuthContext);
+  const { accessToken } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [section, setSection] = useState("");
   const [description, setDescription] = useState("");
@@ -36,7 +35,7 @@ const CreateCourseForm = () => {
         // Call API function to create course
         const createdCourse = await createCourseWithAccessToken(
           accessToken,
-          
+          courseData // Pass courseData as argument
         );
 
         // Set success state and reset input values
@@ -55,7 +54,6 @@ const CreateCourseForm = () => {
       }
     }
   };
-
   return (
     <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
       <h2 className="text-xl font-semibold mb-4">Create Course</h2>

@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   getAuth,
   signInWithPopup,
+  signInWithRedirect,
   signOut,
 } from "firebase/auth";
 import { auth } from "../../lib/firebase";
@@ -34,11 +35,16 @@ export function AuthProvider({ children }) {
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
+
+    // Set response_type and access_type parameters
+    provider.setCustomParameters({
+      response_type: "code", // Specify the response type as "code"
+      access_type: "offline", // Specify the access type as "offline" to get a refresh token
+    });
+
+    // Add desired scopes
     provider.addScope(
-      "https://www.googleapis.com/auth/classroom.courses",
-      "https://www.googleapis.com/auth/classroom.coursework.me",
-      "https://www.googleapis.com/auth/classroom.topics",
-      "https://www.googleapis.com/auth/calendar.events"
+      "https://www.googleapis.com/auth/classroom.topics https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/classroom.courses https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/classroom.coursework.me"
     );
 
     try {
@@ -51,6 +57,8 @@ export function AuthProvider({ children }) {
       document.cookie = `accessToken=${accessToken}; path=/;`;
 
       const user = result.user;
+      const refreshToken = user.refreshToken;
+      console.log("Refresh Token:", refreshToken);
       getCoursesWithAccessToken(accessToken);
     } catch (error) {
       console.error("Error signing in with Google:", error);
@@ -70,7 +78,7 @@ export function AuthProvider({ children }) {
       console.error("Error signing out:", error);
     }
   };
-  
+
   // Helper function to get cookie value
   const getCookie = (name) => {
     const cookies = document.cookie.split(";").map((cookie) => cookie.trim());

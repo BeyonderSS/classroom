@@ -4,6 +4,7 @@ import AuthContext from "./contexts/AuthContext";
 import { getCoursesWithAccessToken } from "./api/listcourses";
 import CoursesList from "../components/CoursesList"; // Import the CoursesList component
 import CreateCourseForm from "../components/CreateCourseForm";
+import CreateMeeting from "../components/CreateMeeting";
 
 export default function Home() {
   const { user, accessToken, signInWithGoogle, handleSignOut } =
@@ -36,6 +37,7 @@ export default function Home() {
           {/* Render the CoursesList component with the courses data */}
           <CoursesList courses={courses} />
           {/* <CreateCourseForm/> */}
+          <CreateMeeting/>
         </div>
       ) : (
         <SignInButton onClick={signInWithGoogle} />
