@@ -9,8 +9,9 @@ import CreateMeeting from "../components/CreateMeeting";
 export default function Home() {
   const { user, accessToken, signInWithGoogle, handleSignOut } =
     useContext(AuthContext);
+    
   const [courses, setCourses] = useState([]); // State to store the courses data
-
+  // console.log("Access Token :", accessToken);
   useEffect(() => {
     // Fetch courses data when accessToken changes
     const fetchCourses = async () => {
@@ -37,7 +38,7 @@ export default function Home() {
           {/* Render the CoursesList component with the courses data */}
           <CoursesList courses={courses} />
           {/* <CreateCourseForm/> */}
-          <CreateMeeting/>
+          <CreateMeeting />
         </div>
       ) : (
         <SignInButton onClick={signInWithGoogle} />

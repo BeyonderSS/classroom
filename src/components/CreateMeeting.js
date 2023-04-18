@@ -5,18 +5,27 @@ import { createEventWithMeetLink } from "../pages/api/createmeeting";
 const CreateMeeting = () => {
   const { accessToken } = useContext(AuthContext);
   async function generateMeetLink() {
+    console.log(accessToken)
     const eventDetails = {
-      summary: 'Your event summary',
+      summary: "Test meeting with Google Meet link",
+      location: "Online",
       start: {
-        dateTime: '2023-04-25T10:00:00-07:00',
-        timeZone: 'America/Los_Angeles',
+        dateTime: "2023-04-19T09:00:00",
+        timeZone: "America/New_York",
       },
       end: {
-        dateTime: '2023-04-25T12:00:00-07:00',
-        timeZone: 'America/Los_Angeles',
+        dateTime: "2023-04-19T10:00:00",
+        timeZone: "America/New_York",
       },
+      attendees: [
+        {
+          email: "example1@example.com",
+        },
+        {
+          email: "example2@example.com",
+        },
+      ],
     };
-  
     try {
       await createEventWithMeetLink(accessToken, eventDetails);
     } catch (error) {
@@ -35,3 +44,4 @@ const CreateMeeting = () => {
 };
 
 export default CreateMeeting;
+

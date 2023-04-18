@@ -1,5 +1,6 @@
 export async function createEventWithMeetLink(accessToken, eventDetails) {
-  const url = "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1";
+  const url =
+    "https://www.googleapis.com/calendar/v3/calendars/primary/events?conferenceDataVersion=1";
   const headers = {
     Authorization: `Bearer ${accessToken}`,
     "Content-Type": "application/json",
@@ -11,7 +12,17 @@ export async function createEventWithMeetLink(accessToken, eventDetails) {
       createRequest: {
         conferenceSolutionKey: {
           type: "hangoutsMeet",
+          parameters: {
+            addOnParameters: {
+              conferenceSolutionId: "hangoutsMeet",
+              sendEventNotifications: false,
+              addOnType: "HANGOUTS_MEET",
+              guestsCanSeeOtherGuests: true,
+              hostEmail: "ssbeyoder@gmail.com", // Replace with the email address of the host
+            },
+          },
         },
+
         requestId: "some-random-string", // Make sure to generate a unique string for each request
       },
     },

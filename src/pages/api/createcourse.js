@@ -7,20 +7,28 @@ export async function createCourseWithAccessToken(accessToken) {
     "Content-Type": "application/json"
   };
   
-  // Hardcoded course data for testing
+  // Individual course fields
+  const name = "Test Course";
+  const section = "A";
+  const description = "This is a test course";
+  const room = "101";
+  const ownerId = "me";
+  const courseState = "ACTIVE";
+
+  // Course data object
   const courseData = {
-    name: "Test Course",
-    section: "A",
-    description: "This is a test course",
-    room: "101",
-    ownerId: "me",
-    courseState: "ACTIVE"
+    name,
+    section,
+    description,
+    room,
+    ownerId,
+    courseState
   };
 
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers: headers,
+      headers,
       body: JSON.stringify(courseData)
     });
 

@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 import { getCoursesWithAccessToken } from "../api/listcourses";
+import { createCourseWithAccessToken } from "../api/createcourse";
 
 const AuthContext = createContext();
 
@@ -44,7 +45,7 @@ export function AuthProvider({ children }) {
 
     // Add desired scopes
     provider.addScope(
-      "https://www.googleapis.com/auth/classroom.topics https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/classroom.courses https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/classroom.coursework.me"
+      "openid email profile https://www.googleapis.com/auth/classroom.topics https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/classroom.courses https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/classroom.coursework.me"
     );
 
     try {
@@ -60,6 +61,7 @@ export function AuthProvider({ children }) {
       const refreshToken = user.refreshToken;
       console.log("Refresh Token:", refreshToken);
       getCoursesWithAccessToken(accessToken);
+      // createCourseWithAccessToken(accessToken)
     } catch (error) {
       console.error("Error signing in with Google:", error);
     }
