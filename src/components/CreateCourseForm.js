@@ -35,7 +35,7 @@ const CreateCourseForm = () => {
         // Call API function to create course
         const createdCourse = await createCourseWithAccessToken(
           accessToken,
-          courseData // Pass courseData as argument
+           // Pass courseData as argument
         );
 
         // Set success state and reset input values

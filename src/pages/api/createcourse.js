@@ -1,34 +1,16 @@
-import fetch from 'node-fetch';
+// api/createcourse.js
 
-export async function createCourseWithAccessToken(accessToken) {
+export async function createCourseWithAccessToken(accessToken, courseData) {
   const url = "https://classroom.googleapis.com/v1/courses";
   const headers = {
     Authorization: `Bearer ${accessToken}`,
     "Content-Type": "application/json"
   };
-  
-  // Individual course fields
-  const name = "Test Course";
-  const section = "A";
-  const description = "This is a test course";
-  const room = "101";
-  const ownerId = "me";
-  const courseState = "ACTIVE";
-
-  // Course data object
-  const courseData = {
-    name,
-    section,
-    description,
-    room,
-    ownerId,
-    courseState
-  };
 
   try {
     const response = await fetch(url, {
       method: "POST",
-      headers,
+      headers: headers,
       body: JSON.stringify(courseData)
     });
 

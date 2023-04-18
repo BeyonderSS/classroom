@@ -37,7 +37,7 @@ export default function Home() {
           <button onClick={handleSignOut}>Sign Out</button>
           {/* Render the CoursesList component with the courses data */}
           <CoursesList courses={courses} />
-          {/* <CreateCourseForm/> */}
+          <CreateCourseForm/>
           <CreateMeeting />
         </div>
       ) : (
