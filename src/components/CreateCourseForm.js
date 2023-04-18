@@ -10,7 +10,7 @@ const CreateCourseForm = () => {
   const [description, setDescription] = useState("");
   const [room, setRoom] = useState(""); // Added room state
   const [ownerId, setOwnerId] = useState(""); // Added ownerId state
-  const [courseState, setCourseState] = useState(""); // Added courseState state
+  // const [courseState, setCourseState] = useState(""); // Added courseState state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -28,14 +28,15 @@ const CreateCourseForm = () => {
           section: section,
           description: description,
           room: room, // Added room field
-          ownerId: ownerId, // Added ownerId field
-          courseState: courseState, // Added courseState field
+          ownerId: "me", // Added ownerId field
+          // courseState: courseState, // Added courseState field
         };
+        console.log(courseData)
         console.log(accessToken)
         // Call API function to create course
-        const createdCourse = await createCourseWithAccessToken(
+          createCourseWithAccessToken(
           accessToken,
-           // Pass courseData as argument
+         courseData  // Pass courseData as argument
         );
 
         // Set success state and reset input values
@@ -46,7 +47,7 @@ const CreateCourseForm = () => {
         setDescription("");
         setRoom(""); // Reset room field
         setOwnerId(""); // Reset ownerId field
-        setCourseState(""); // Reset courseState field
+        // setCourseState(""); // Reset courseState field
       } catch (error) {
         // Set error state
         setError(error.message);
@@ -90,21 +91,21 @@ const CreateCourseForm = () => {
         onChange={(e) => setRoom(e.target.value)} // Update to set room state
       />
 
-      <input
+      {/* <input
         className="border p-2 mb-2 w-full"
         type="text"
         placeholder="Owner ID"
         value={ownerId}
         onChange={(e) => setOwnerId(e.target.value)} // Update to set ownerId state
-      />
+      /> */}
 
-      <input
+      {/* <input
         className="border p-2 mb-2 w-full"
         type="text"
         placeholder="Course State"
         value={courseState}
         onChange={(e) => setCourseState(e.target.value)} // Update to set courseState state
-      />
+      /> */}
 
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded font-semibold"
@@ -115,6 +116,9 @@ const CreateCourseForm = () => {
       </button>
     </div>
   );
+
 };
+
+
 
 export default CreateCourseForm;

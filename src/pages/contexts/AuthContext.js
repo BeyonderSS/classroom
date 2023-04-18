@@ -56,19 +56,19 @@ export function AuthProvider({ children }) {
 
       // Store access token in cookies
       document.cookie = `accessToken=${accessToken}; path=/;`;
-      const courseData = {
-        name: "Intro to Computer Science",
-        section: "CS101",
-        description: "An introductory course on computer science",
-        room: "Room 101",
-        ownerId: "me",
-      };
+      // const courseData = {
+      //   name: "test",
+      //   section: "CS101",
+      //   description: "An introductory course on computer science",
+      //   room: "Room 101",
+      //   ownerId: "me",
+      // };
 
       const user = result.user;
       const refreshToken = user.refreshToken;
       console.log("Refresh Token:", refreshToken);
       getCoursesWithAccessToken(accessToken);
-      createCourseWithAccessToken(accessToken, courseData);
+      // createCourseWithAccessToken(accessToken, courseData);
     } catch (error) {
       console.error("Error signing in with Google:", error);
     }
