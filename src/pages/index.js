@@ -5,6 +5,7 @@ import { getCoursesWithAccessToken } from "./api/listcourses";
 import CoursesList from "../components/CoursesList"; // Import the CoursesList component
 import CreateCourseForm from "../components/CreateCourseForm";
 import CreateMeeting from "../components/CreateMeeting";
+import AnnouncementsPage from "./AnnouncementsPage";
 
 export default function Home() {
   const { user, accessToken, signInWithGoogle, handleSignOut } =
@@ -39,6 +40,7 @@ export default function Home() {
           <CoursesList courses={courses} />
           <CreateCourseForm/>
           <CreateMeeting />
+          <AnnouncementsPage/>
         </div>
       ) : (
         <SignInButton onClick={signInWithGoogle} />

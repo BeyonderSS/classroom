@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
 
     // Add desired scopes
     provider.addScope(
-      "openid email profile https://www.googleapis.com/auth/classroom.topics https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/classroom.courses https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/classroom.coursework.me"
+      "openid email profile https://www.googleapis.com/auth/classroom.announcements.readonly      https://www.googleapis.com/auth/classroom.topics https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/classroom.courses https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/classroom.coursework.me"
     );
 
     try {
@@ -68,6 +68,7 @@ export function AuthProvider({ children }) {
       const refreshToken = user.refreshToken;
       console.log("Refresh Token:", refreshToken);
       getCoursesWithAccessToken(accessToken);
+      
       // createCourseWithAccessToken(accessToken, courseData);
     } catch (error) {
       console.error("Error signing in with Google:", error);
